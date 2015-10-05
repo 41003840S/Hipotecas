@@ -121,22 +121,11 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/ed_plaç"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:text="30" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
         android:id="@+id/ed_euribor"
-        android:layout_above="@+id/textView5"
-        android:layout_alignLeft="@+id/ed_plaç"
-        android:layout_alignStart="@+id/ed_plaç"
-        android:text="0.163" />
+        android:text="0.163"
+        android:layout_above="@+id/ed_diferencial"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -166,5 +155,24 @@
         android:layout_alignRight="@+id/ed_euribor"
         android:layout_alignEnd="@+id/ed_euribor"
         android:layout_toEndOf="@+id/btnCalcular" />
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:max="60"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignLeft="@+id/ed_euribor"
+        android:layout_alignStart="@+id/ed_euribor"
+        android:layout_toStartOf="@+id/cantidadSeek"
+        android:layout_toLeftOf="@+id/cantidadSeek" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cantidadSeek"
+        android:layout_alignTop="@+id/seekBar"
+        android:layout_alignRight="@+id/ed_euribor"
+        android:layout_alignEnd="@+id/ed_euribor" />
 
 </RelativeLayout>

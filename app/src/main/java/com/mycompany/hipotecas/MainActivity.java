@@ -8,13 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText preuInmoble, estalvis, plaç, euribor, diferencial;
-    private TextView mensual, total;
+    private EditText preuInmoble, estalvis, euribor, diferencial; //plaç con EditText
+    private TextView mensual, total, cantidadAnos;
     private double capital, interes, plaç2, cuota;
+    private SeekBar plaç;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +26,40 @@ public class MainActivity extends AppCompatActivity {
 
         preuInmoble = (EditText) findViewById(R.id.ed_preuInmoble);
         estalvis = (EditText) findViewById(R.id.ed_estalvis);
-        plaç = (EditText) findViewById(R.id.ed_plaç);
+        //plaç = (EditText) findViewById(R.id.ed_plaç);
         euribor = (EditText) findViewById(R.id.ed_euribor);
         diferencial = (EditText) findViewById(R.id.ed_diferencial);
         mensual = (TextView) findViewById(R.id.tv_mensual);
         total = (TextView) findViewById(R.id.tv_total);
+        plaç = (SeekBar) findViewById(R.id.seekBar);
+        cantidadAnos = (TextView) findViewById(R.id.cantidadSeek);
 
-        preuInmoble.addTextChangedListener(watcher);
-        estalvis.addTextChangedListener(watcher);
-        plaç.addTextChangedListener(watcher);
         euribor.addTextChangedListener(watcher);
         diferencial.addTextChangedListener(watcher);
-    }
+        estalvis.addTextChangedListener(watcher);
+        preuInmoble.addTextChangedListener(watcher);
 
+
+        plaç.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                calcular();
+                cantidadAnos.setText(""+progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,11 +131,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public Calcula invoke() {
-            capital = Double.parseDouble(preuInmoble.getText().toString())-Double.parseDouble(estalvis.getText().toString());
-            interes = Double.parseDouble(euribor.getText().toString())+Double.parseDouble(diferencial.getText().toString());
-            plaç2 = Double.parseDouble(plaç.getText().toString())*12;
+            capital = Double.parseDouble(preuInmoble.getText().toString()) - Double.parseDouble(estalvis.getText().toString());
+            interes = Double.parseDouble(euribor.getText().toString()) + Double.parseDouble(diferencial.getText().toString());
+            plaç2 = plaç.getProgress() * 12;
 
-            cuota = (capital*(interes/12))/(100*(1-(Math.pow((1+(interes/12)/100), -plaç2))));
+            cuota = (capital * (interes / 12)) / (100 * (1 - (Math.pow((1 + (interes / 12) / 100), -plaç2))));
 
             mens = (float) cuota;
             tot = (float) (cuota * plaç2);
