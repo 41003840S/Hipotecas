@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Hipotecas</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string-array name="interes">
+        <item>Variable</item>
+        <item>Fijo</item>
+    </string-array>
 </resources>
